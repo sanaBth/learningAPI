@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //api login et register
-//test comment
+
 app.use('/apiuser',userApi);
 
 
