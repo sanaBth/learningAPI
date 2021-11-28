@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const app = express();
 const userApi = require('./routes/authroutes');
-
+const formationApi = require('./routes/formationroutes');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/formation');
 app.use(express.json());
@@ -24,9 +24,9 @@ app.use(bodyParser.json());
 //api login et register
 
 app.use('/apiuser',userApi);
+app.use('/uploads',express.static(__dirname + '/uploads'));
 
-
-
+app.use('/formation',formationApi);
 
 app.listen(process.env.port || 
     4000,function(){
