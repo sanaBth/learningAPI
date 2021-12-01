@@ -21,24 +21,21 @@ const FormationSchema = new Schema({
         required:[true,'name field is required']
     },notes:{
         type:Number,
-        required:[false]
+        required:false
     },prix:{
         type:Number,
         required:[true,'name field is required']
-    },listVideo:{
-        type:Array,
-        required:[false ]
-    }
+    }, listVideo:[{
+         type: mongoose.Schema.Types.ObjectId, 
+         ref: 'Video', 
+        required: true
+     }]
     /* categorie:{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Categorie', 
        required: true
     }
-    listVideo:[{
-         type: mongoose.Schema.Types.ObjectId, 
-         ref: 'Video', 
-        required: true
-     }], */
+    */
 },
 { timestamps: true ,versionKey: false });
 

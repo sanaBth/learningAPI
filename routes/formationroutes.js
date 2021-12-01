@@ -1,8 +1,9 @@
 const express = require('express');
 const router =  express.Router();
-const Video = require('../models/video');
+
 const multer = require('multer');
 const Formation = require('../models/formation');
+
 
 var storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -12,20 +13,25 @@ var storage = multer.diskStorage({
       callback(null,  Date.now()+ '-' +file.originalname );
     }
 });
+var uploadimage = multer({ storage : storage, limits: {
+  fileSize: 100000000 // 1000000 Bytes = 1 MB
+},});
+ 
 
-    var upload = multer({ storage : storage,
-    limits: {
-    fileSize: 1000000000 // 10000000 Bytes = 10 MB
-    },});
+   
 
-    router.post('/uploadvid',upload.array('video'),async function(req,res){
-    let listVideo = []
+
+    router.post('/add', uploadimage.single('image') ,async function(req,res){
+   /* let listVideo = []
     req.files.forEach(file => {
     listVideo.push(file.filename);
-    });
+    }); 
+    console.log(req.file); */
+  
     try {
-    const formation = new Formation({...req.body,listVideo});
-
+      let imagef = req.file.filename
+    const formation = new Formation({...req.body,imagef});
+ 
     const resFormation =   await formation.save();
 
     res.status(201).json(resFormation)
@@ -33,7 +39,7 @@ var storage = multer.diskStorage({
     res.status(500).json(error)
     }
     });
-
+    
 
 
     //getting all formations

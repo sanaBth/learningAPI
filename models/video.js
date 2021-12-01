@@ -15,9 +15,9 @@ const VideoSchema = new Schema({
       type:String,
       required:[true,'description field is required']
     },
-    link:{
+    lienVideo:{
      type:String,
-     required:[true,'link field is required']
+     required:[true,'video field is required']
 }
 },
 { timestamps: true ,versionKey: false });
