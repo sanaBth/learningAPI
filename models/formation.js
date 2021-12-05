@@ -28,7 +28,7 @@ const FormationSchema = new Schema({
     }, listVideo:[{
          type: mongoose.Schema.Types.ObjectId, 
          ref: 'Video', 
-        required: true
+        required: false
      }]
     /* categorie:{
         type: mongoose.Schema.Types.ObjectId, 

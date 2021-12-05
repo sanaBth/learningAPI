@@ -17,17 +17,8 @@ var uploadimage = multer({ storage : storage, limits: {
   fileSize: 100000000 // 1000000 Bytes = 1 MB
 },});
  
-
-   
-
-
-    router.post('/add', uploadimage.single('image') ,async function(req,res){
-   /* let listVideo = []
-    req.files.forEach(file => {
-    listVideo.push(file.filename);
-    }); 
-    console.log(req.file); */
-  
+ //add formation
+router.post('/add', uploadimage.single('image') ,async function(req,res){
     try {
       let imagef = req.file.filename
     const formation = new Formation({...req.body,imagef});
@@ -39,8 +30,6 @@ var uploadimage = multer({ storage : storage, limits: {
     res.status(500).json(error)
     }
     });
-    
-
 
     //getting all formations
 router.get('/getformation', (req, res) => {
@@ -48,4 +37,14 @@ router.get('/getformation', (req, res) => {
     .then(result =>res.status(200).json(result) )
     .catch(err => res.status(500).json(err)); 
   });
+
+    //get one formation
+    router.get('/details/:id', (req, res) =>
+    Formation.findOne({
+       _id: req.params.id
+       }).populate("listVideo")
+       .then(result =>res.status(200).json(result) )
+       .catch(err => res.status(500).json(err))
+       
+       );
     module.exports = router;

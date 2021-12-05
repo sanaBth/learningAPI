@@ -1,7 +1,9 @@
 const express = require ('express');
 
 var morgan = require('morgan');
-var cors = require('cors');
+
+const cors = require("cors");
+
 const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const app = express();
@@ -14,7 +16,7 @@ mongoose.connect('mongodb://localhost/formation');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 require("dotenv").config();
-var cors = require('cors');
+
 const cookieParser=require('cookie-parser');
 app.use(cookieParser());
 // parse application/json
