@@ -2,11 +2,13 @@ const express = require ('express');
 
 var morgan = require('morgan');
 
+
 const cors = require("cors");
 
 const mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 const app = express();
+app.use(morgan("dev"));
 const userApi = require('./routes/authroutes');
 const formationApi = require('./routes/formationroutes');
 const videoApi = require('./routes/videoroutes');
