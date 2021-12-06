@@ -57,31 +57,21 @@ router.get('/videos', (req, res) => {
        );
 
   //delete video
-  router.delete('videos/:id', (req, res) => {
+  router.delete('/delete/:id', (req, res) => {
     Video.findOneAndRemove({
       _id: req.params.id
-    }).then(result =>res.json({message : "removed with success"}) )
+    }).then(result =>res.json({message : "formation removed with success"}) )
       .catch(err => res.json(err) ); 
   });
 
 
- /* //add formation without video
-router.post('/formation', (req, res) => {
-  let newFormation = new Formation();
-  newFormation.nom = req.body.nom;
-  newFormation.imagef = req.body.imagef;
-  newFormation.dure = req.body.dure;
-  newFormation.nomformateur = req.body.nomformateur;
-  newFormation.description = req.body.description;
-  newFormation.notes = req.body.notes;
-  newFormation.prix = req.body.prix;
-  
-console.log(newFormation);
- newFormation.save()
-    .then(result =>res.status(201).json(result) )
-    .catch(err => res.status(500).json(err)); 
-
-}); */
+ //delete formation
+router.delete('/delete/:id', (req, res) => {
+  Video.findOneAndRemove({
+    _id: req.params.id
+  }).then(result =>res.json({message : "video removed with success"}) )
+    .catch(err => res.json(err) ); 
+});
 
 
 module.exports = router;

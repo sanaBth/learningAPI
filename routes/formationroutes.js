@@ -47,4 +47,34 @@ router.get('/getformation', (req, res) => {
        .catch(err => res.status(500).json(err))
        
        );
+
+//update formation
+  router.put('/update/:id',uploadimage.single('image') , (req, res) =>
+
+  Formation.findOneAndUpdate({
+    _id: req.params.id
+    },
+   
+    req.body,req.file.imagef,{new : true},
+    )
+    .then(result => res.json(result))
+  .catch(err => res.status(500).json(err))
+  
+);
+
+router.put('/todo/:id', (req, res) =>
+  Todo.findByIdAndUpdate(
+    req.params.id,req.body,{new : true}
+   ).then(result => res.status(201).json(result) )
+  .catch(err =>  res.status(500).json(err))
+  
+);
+
+//delete formation
+router.delete('/delete/:id', (req, res) => {
+  Formation.findOneAndRemove({
+    _id: req.params.id
+  }).then(result =>res.json({message : "removed with success"}) )
+    .catch(err => res.json(err) ); 
+});
     module.exports = router;
