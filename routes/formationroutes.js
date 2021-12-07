@@ -72,7 +72,7 @@ router.get('/getformation', (req, res) => {
     $set: updates
     },
    {new : true})
-    .then(result => res.json(result))
+    .then(result => res.json(result) )
   .catch(err => res.status(500).json(err))
   }
 );

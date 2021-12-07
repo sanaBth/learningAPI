@@ -27,6 +27,8 @@ router.get('/videos', (req, res) => {
     .catch(err => res.status(500).json(err)); 
   });
  
+
+  //add video to formation
   router.post('/add/:idf', uploadvideo.single('video') ,async function(req,res){
     let idform = req.params.idf;
      try {
@@ -60,18 +62,36 @@ router.get('/videos', (req, res) => {
   router.delete('/delete/:id', (req, res) => {
     Video.findOneAndRemove({
       _id: req.params.id
-    }).then(result =>res.json({message : "formation removed with success"}) )
+    }).then(result =>res.json({message : "video removed with success"}) )
       .catch(err => res.json(err) ); 
   });
 
 
- //delete formation
-router.delete('/delete/:id', (req, res) => {
-  Video.findOneAndRemove({
-    _id: req.params.id
-  }).then(result =>res.json({message : "video removed with success"}) )
-    .catch(err => res.json(err) ); 
-});
+//update video
+router.put('/update/:id',uploadvideo.single('video') , (req, res) =>
+{ 
+  const body = req.body;
+  const name = body.name;
+  const dure = body.dure;
+  const description= body.description
+  
+  const updates = {
+      name,
+      dure,
+      description
+  };
+  if (req.file) {
+      const video = req.file.filename;
+      updates.lienVideo = video;
+  }
+Video.findOneAndUpdate({_id: req.params.id},{
+  $set: updates
+  },
+ {new : true})
+  .then(result => res.json(result) )
+.catch(err => res.status(500).json(err))
+}
+);
 
 
 module.exports = router;
