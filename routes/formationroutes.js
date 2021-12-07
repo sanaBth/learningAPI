@@ -50,25 +50,33 @@ router.get('/getformation', (req, res) => {
 
 //update formation
   router.put('/update/:id',uploadimage.single('image') , (req, res) =>
-
-  Formation.findOneAndUpdate({
-    _id: req.params.id
+  { 
+    const body = req.body;
+    const nom = body.nom;
+    const dure = body.dure;
+    const nomformateur = body.nomformateur;
+    const description= body.description
+    const prix= body.prix
+    const updates = {
+        nom,
+        dure,
+        nomformateur,
+        description,
+        prix
+    };
+    if (req.file) {
+        const image = req.file.filename;
+        updates.imagef = image;
+    }
+  Formation.findOneAndUpdate({_id: req.params.id},{
+    $set: updates
     },
-   
-    req.body,req.file.imagef,{new : true},
-    )
+   {new : true})
     .then(result => res.json(result))
   .catch(err => res.status(500).json(err))
-  
+  }
 );
-
-router.put('/todo/:id', (req, res) =>
-  Todo.findByIdAndUpdate(
-    req.params.id,req.body,{new : true}
-   ).then(result => res.status(201).json(result) )
-  .catch(err =>  res.status(500).json(err))
-  
-);
+ 
 
 //delete formation
 router.delete('/delete/:id', (req, res) => {
