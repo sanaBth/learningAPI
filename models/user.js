@@ -15,6 +15,9 @@ const UserSchema = new Schema({
      password:{
         type:String,
         required:[true,'password field is required']
+    }, role:{
+        type:Boolean,
+        required:[false]
     },
     token:{
         type: String

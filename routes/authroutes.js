@@ -18,6 +18,7 @@ router.post ("/register", async (req,res) => {
     let newUser = new User();
     newUser.username = req.body.username;
     newUser.email = req.body.email;
+    newUser.role = 1;
     newUser.password =  await bcrypt.hash(req.body.password, 10)
     User.findOne({email:req.body.email}, function(err, user){
         if(!user) {
