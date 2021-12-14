@@ -12,6 +12,7 @@ app.use(morgan("dev"));
 const userApi = require('./routes/authroutes');
 const formationApi = require('./routes/formationroutes');
 const videoApi = require('./routes/videoroutes');
+const commandeApi = require('./routes/commanderoutes');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/formation');
@@ -26,14 +27,17 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use(bodyParser.json());
-
-//api login et register
-
-app.use('/apiuser',userApi);
 app.use('/uploads',express.static(__dirname + '/uploads'));
 
+//api login et register
+app.use('/apiuser',userApi);
+//api gestion formation
 app.use('/formation',formationApi);
 app.use('/video',videoApi);
+
+//api gestion commande
+app.use('/commande',commandeApi);
+
 app.listen(process.env.port || 
     4001,function(){
     console.log('now listening for requests');
