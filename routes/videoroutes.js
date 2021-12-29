@@ -29,7 +29,8 @@ router.get('/videos', (req, res) => {
  
 
   //add video to formation
-  router.post('/add/:idf', uploadvideo.single('video') ,async function(req,res){
+  router.post('/add/:idf', uploadvideo.single('video') ,async function(req,res)
+  {
     let idform = req.params.idf;
      try {
        let lienVideo = req.file.filename

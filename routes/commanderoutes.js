@@ -10,7 +10,7 @@ const {User }= require('../models/user');
  //add commandes
 router.post('/add/:idu', async function(req,res){
     const user = await User.findOne({_id: req.params.idu})
-    console.log(user);  
+    
     try {
     const commande = new Commande(req.body);
     console.log(req.body);
@@ -38,7 +38,8 @@ router.post('/add/:idu', async function(req,res){
 
  //getting all commandes
 router.get('/all', (req, res) => {
-    Commande.find() .populate("idformation")
+    Commande.find() 
+    .populate("idformation")
     .populate("iduser")
     .then(result =>res.status(200).json(result) )
     .catch(err => res.status(500).json(err)); 

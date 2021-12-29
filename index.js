@@ -37,9 +37,12 @@ app.use('/video',videoApi);
 
 //api gestion commande
 app.use('/commande',commandeApi);
+// index.js
+app.use('/order',commandeApi);
+
 
 app.listen(process.env.port || 
-    4001,function(){
+    4000,function(){
     console.log('now listening for requests');
   });
   
