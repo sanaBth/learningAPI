@@ -133,5 +133,15 @@ router.post("/:userId/:token", async (req, res) => {
     }
 });
 
+  //get profile
+  router.get('/details/:id', (req, res) =>
+  User.findOne({
+    _id: req.params.id
+    }).populate("cours")
+
+    .then(result =>res.status(200).json(result) )
+    .catch(err => res.status(500).json(err))
+    
+    );
 
 module.exports = router;

@@ -15,9 +15,10 @@ router.post('/add/:idu', async function(req,res){
     const commande = new Commande(req.body);
     console.log(req.body);
     commande.iduser = user._id;
-
-    const rescommande =   await commande.save();
-    res.status(201).json(rescommande)
+const rescommande =   await commande.save();
+    user.cours = req.body.idformation;
+    const resuser =   await user.save();
+    res.status(201).json(rescommande,resuser)
     } 
     catch (error) {
     res.status(500).json(error)
@@ -45,7 +46,22 @@ router.get('/all', (req, res) => {
     .catch(err => res.status(500).json(err)); 
   });
 
+    //addformation to user
+    router.put('/addf/:idf', async function(req,res){
+      const formation = await formation.findOne({_id: req.params.idf})
+      
+      try {
     
+      User.cours = formation._id;
+      
+
+      const rescommande =   await commande.save();
+      res.status(201).json(rescommande)
+      } 
+      catch (error) {
+      res.status(500).json(error)
+      }
+      }); 
 
 
 

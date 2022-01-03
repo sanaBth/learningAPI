@@ -22,6 +22,11 @@ const UserSchema = new Schema({
     token:{
         type: String
     },
+    cours:[{
+        type: mongoose.Schema.Types.ObjectId, 
+    ref: 'formation', 
+   required: true
+    }]
 },
 { timestamps: true ,versionKey: false });
 
