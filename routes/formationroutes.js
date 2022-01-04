@@ -38,15 +38,35 @@ router.get('/getformation', (req, res) => {
     .catch(err => res.status(500).json(err)); 
   });
 
-    //get one formation
+ //get one formation
     router.get('/details/:id', (req, res) =>
     Formation.findOne({
        _id: req.params.id
        }).populate("listVideo")
        .then(result =>res.status(200).json(result) )
        .catch(err => res.status(500).json(err))
-       
        );
+
+        //get one formation with listvideos
+    router.get('/detailv/:id', (req, res) =>
+    Formation.findOne({
+       _id: req.params.id
+       })//.populate("listVideo")
+       .then(result =>res.status(200).json(result) )
+       .catch(err => res.status(500).json(err))
+       );
+ //add formation to user
+router.put('/user/:idu/:idf', async (req, res)=>{
+  let iduser = req.params.idu;
+  let idformation = req.params.idf;
+
+  User.findByIdAndUpdate(
+    iduser,{  $push: { cours: idformation }}
+    ,{new : true}
+  ).then(result => res.json(result))
+  .catch(err => res.status(500).json(err))
+  } );
+
 
 //update formation
   router.put('/update/:id',uploadimage.single('image') , (req, res) =>

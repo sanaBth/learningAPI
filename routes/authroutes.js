@@ -27,7 +27,7 @@ router.post ("/register", async (req,res) => {
             .catch(err => res.status(500).json(err)); 
         }
         else {
-            res.status(500).json("email existe deja");
+            res.status(500).json("Email existe déjà");
           }
     });
 
@@ -41,7 +41,7 @@ router.post ("/register", async (req,res) => {
     {
       return res.status(404).json({
         success: false,
-        msg: "Email not found",
+        msg: "Veuillez vérifier votre adresse mail!",
       });
     } 
    else
@@ -60,7 +60,7 @@ router.post ("/register", async (req,res) => {
                 return res.json({success: true,user, token:token});
             } else 
             {
-                res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+                res.status(401).send({success: false, msg: 'Vérifier votre mot de passe!'});
             }
    })
 }
@@ -138,7 +138,6 @@ router.post("/:userId/:token", async (req, res) => {
   User.findOne({
     _id: req.params.id
     }).populate("cours")
-
     .then(result =>res.status(200).json(result) )
     .catch(err => res.status(500).json(err))
     

@@ -19,6 +19,7 @@ var uploadvideo = multer({ storage : storage,
   limits: {
   fileSize: 1000000000 // 10000000 Bytes = 10 MB
   },});
+
 //getting all videos
 router.get('/videos', (req, res) => {
     console.log('getting all videos');
@@ -35,7 +36,6 @@ router.get('/videos', (req, res) => {
      try {
        let lienVideo = req.file.filename
      const video = new Video({...req.body,lienVideo});
-
      const resVideo =   await video.save();
      console.log(resVideo);
      const resFormation = await Formation.findByIdAndUpdate(
@@ -52,7 +52,6 @@ router.get('/videos', (req, res) => {
  
     //get one video
     router.get('/details/:id', (req, res) =>
-    // console.log('getting all books');
     Video.findOne({
        _id: req.params.id
        }) .then(result =>res.status(200).json(result) )
