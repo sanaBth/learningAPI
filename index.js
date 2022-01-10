@@ -40,6 +40,9 @@ app.use('/commande',commandeApi);
 // index.js
 app.use('/order',commandeApi);
 
+app.get('/',(req,res)=>{
+  res.send('Welcome');
+})
 
 app.listen(process.env.port || 
     4001,function(){
