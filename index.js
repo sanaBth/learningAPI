@@ -31,7 +31,7 @@ app.listen(port,()=>{
 */
 mongoose.Promise = require('bluebird');
 mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
-.then(() =>  console.log('connection succesfull'))
+.then(() =>  console.log('connection succesfullllllllllllllllllll!'))
 .catch((err) => console.error(err));
 const port = process.env.PORT || 4001;
 app.listen(port,()=>{
