@@ -38,7 +38,7 @@ router.post("/register", async (req, res) => {
 
 
 //login
-router.post("/login", async (req, res) => {
+/* router.post("/login", async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
         return res.status(404).json({
@@ -63,10 +63,34 @@ router.post("/login", async (req, res) => {
             }
         })
     }
+}); */
+
+//login 2 
+router.post("/login", async (req, res) => {
+
+const user = await User.findOne({
+    userName: req.body.userName
+    }, function(err, user) {
+    if (err) throw err;
+    if (!user) {
+      res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+    } else {
+      // check if password matches
+      user.comparePassword(req.body.password, function (err, isMatch) {
+        if (isMatch && !err) {
+          // if user is found and password is right create a token
+          var token = jwt.sign(user.toJSON(),'RANDOM_TOKEN_SECRET', {
+            expiresIn: '24h'
+        });
+          // return the information including token as JSON
+          res.json({ success: true, user, token: token });
+        } else {
+          res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+        }
+      });
+    }
+  });
 });
-
-
-
 
 //login with passport security
 router.get('/profile',
