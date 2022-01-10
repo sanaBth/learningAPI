@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server",
-    "dev": "nodemon server"
+    "start": "node index.js",
+    "build": "ng build",
+    "heroku-postbuild": "ng build --prod" 
   },
   "engines": {
     "node": "14.17.6"
