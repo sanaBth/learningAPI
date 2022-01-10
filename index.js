@@ -33,7 +33,7 @@ mongoose.Promise = require('bluebird');
 mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
 .then(() =>  console.log('connection succesfullllllllllllllllllll!'))
 .catch((err) => console.error(err));
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4001;
 
 app.listen(port,()=>{
   console.log(`started up at port ${port}`);
@@ -59,4 +59,5 @@ app.use('/video',videoApi);
 app.use('/commande',commandeApi);
 // index.js
 app.use('/order',commandeApi);
-app.listen(3000);
+app.listen(3128);
+module.exports =  app;
