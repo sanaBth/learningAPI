@@ -6,6 +6,8 @@ var morgan = require('morgan');
 const cors = require("cors");
 
 const mongoose = require('mongoose');
+var config = require('./config/database');
+
 var bodyParser = require('body-parser');
 const app = express();
 app.use(morgan("dev"));
@@ -13,16 +15,33 @@ const userApi = require('./routes/authroutes');
 const formationApi = require('./routes/formationroutes');
 const videoApi = require('./routes/videoroutes');
 const commandeApi = require('./routes/commanderoutes');
-
+//local database
+/*
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/formation');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+const port = process.env.PORT || 4001;
+
+app.listen(port,()=>{
+  console.log(`started up at port ${port}`);
+});
+
+*/
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
+.then(() =>  console.log('connection succesfull'))
+.catch((err) => console.error(err));
+const port = process.env.PORT || 4001;
+app.listen(port,()=>{
+  console.log(`started up at port ${port}`);
+});
 require("dotenv").config();
 
 const cookieParser=require('cookie-parser');
 app.use(cookieParser());
-// parse application/json
+
 
 app.use(cors());
 
@@ -40,12 +59,3 @@ app.use('/commande',commandeApi);
 // index.js
 app.use('/order',commandeApi);
 
-app.get('/',(req,res)=>{
-  res.send('Welcome');
-})
-
-app.listen(process.env.port || 
-    4001,function(){
-    console.log('now listening for requests');
-  });
-  
