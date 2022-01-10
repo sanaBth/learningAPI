@@ -16,9 +16,6 @@ router.post('/add/:idu', async function(req,res){
     console.log(req.body);
     commande.iduser = user._id;
    const rescommande =   await commande.save();
-  // user.cours = user.push(req.body.idformation);
-    //  user.cours = req.body.idformation;
-   // const resuser =   await user.save();
    const update = await  User.findByIdAndUpdate(
       req.params.idu,{$push: { cours: req.body.idformation }})
     res.status(201).json(rescommande)

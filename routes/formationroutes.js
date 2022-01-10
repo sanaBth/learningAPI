@@ -38,7 +38,7 @@ router.get('/getformation', (req, res) => {
     .catch(err => res.status(500).json(err)); 
   });
 
- //get one formationwith listvideos
+ //get one formation with listvideos
     router.get('/details/:id', (req, res) =>
     Formation.findOne({
        _id: req.params.id
@@ -47,7 +47,7 @@ router.get('/getformation', (req, res) => {
        .catch(err => res.status(500).json(err))
        );
 
-//get one formation 
+//get one formation without listvideo
     router.get('/detailv/:id', (req, res) =>
     Formation.findOne({
        _id: req.params.id
