@@ -59,3 +59,4 @@ app.use('/commande',commandeApi);
 // index.js
 app.use('/order',commandeApi);
 
+module.exports =  app;
