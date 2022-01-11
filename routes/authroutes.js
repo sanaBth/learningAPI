@@ -34,6 +34,28 @@ router.post("/register", async (req, res) => {
 
 })
 
+// register user with hashed passwored
+router.post("/registerad", async (req, res) => {
+    console.log("creating user ..", req.body);
+    let newUser = new User();
+    newUser.username = req.body.username;
+    newUser.email = req.body.email;
+    newUser.role = 1;
+    newUser.password = await bcrypt.hash(req.body.password, 10)
+    User.findOne({ email: req.body.email }, function (err, user) {
+        if (!user) {
+            newUser.save()
+                .then(result => res.status(201).json(result))
+                .catch(err => res.status(500).json(err));
+        }
+        else {
+            res.status(500).json("Email existe déjà");
+        }
+    });
+
+
+})
+
 
 
 
