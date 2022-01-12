@@ -20,7 +20,8 @@ var uploadimage = multer({ storage : storage, limits: {
  //add formation
 router.post('/add', uploadimage.single('image') ,async function(req,res){
     try {
-      let imagef = req.file.filename
+      
+      let imagef = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`;
     const formation = new Formation({...req.body,imagef});
  
     const resFormation =   await formation.save();
