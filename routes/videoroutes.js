@@ -33,7 +33,7 @@ router.get('/videos', (req, res) => {
   {
     let idform = req.params.idf;
      try {
-       let lienVideo = req.file.filename
+       let lienVideo = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`;
      const video = new Video({...req.body,lienVideo});
      const resVideo =   await video.save();
      const resFormation = await Formation.findByIdAndUpdate(
