@@ -8,7 +8,6 @@ const User = require('../models/user');
 passport.use(new BearerStrategy(
     async function(token, done) {
     const decode = await jwt.verify(token,process.env.TOKEN_KEY);
-    console.log(decode);
     User.findOne({ _id: decode.id }, 
       function (err, user) {
       if (err) { return done(err); }

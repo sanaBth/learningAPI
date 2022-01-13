@@ -13,7 +13,6 @@ router.post('/add/:idu', async function(req,res){
     
     try {
     const commande = new Commande(req.body);
-    console.log(req.body);
     commande.iduser = user._id;
    const rescommande =   await commande.save();
    const update = await  User.findByIdAndUpdate(

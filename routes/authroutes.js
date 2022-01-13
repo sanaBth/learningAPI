@@ -14,7 +14,6 @@ const Joi = require("joi");
 
 // register user with hashed passwored
 router.post("/register", async (req, res) => {
-    console.log("creating user ..", req.body);
     let newUser = new User();
     newUser.username = req.body.username;
     newUser.email = req.body.email;
@@ -36,7 +35,6 @@ router.post("/register", async (req, res) => {
 
 // register user with hashed passwored
 router.post("/registerad", async (req, res) => {
-    console.log("creating user ..", req.body);
     let newUser = new User();
     newUser.username = req.body.username;
     newUser.email = req.body.email;

@@ -22,7 +22,6 @@ var uploadvideo = multer({ storage : storage,
 
 //getting all videos
 router.get('/videos', (req, res) => {
-    console.log('getting all videos');
     Video.find({})
     .then(result =>res.status(200).json(result) )
     .catch(err => res.status(500).json(err)); 
@@ -37,7 +36,6 @@ router.get('/videos', (req, res) => {
        let lienVideo = req.file.filename
      const video = new Video({...req.body,lienVideo});
      const resVideo =   await video.save();
-     console.log(resVideo);
      const resFormation = await Formation.findByIdAndUpdate(
       idform,{  $push: { listVideo: resVideo._id }}
       ,{new : true}
